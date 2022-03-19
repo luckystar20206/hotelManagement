@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RoomtypeController;
+use App\Http\Controllers\RoomController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+//Admin Dashbopard
 Route::get('/admin', function () {
     return view('dashboard');
 });
+//Room type routes
+Route::resource('admin/roomtype',RoomtypeController::class);
+Route::get('admin/roomtype/{id}/delete',[RoomtypeController::class,'destroy']);
+Route::resource('admin/room',RoomController::class);
+Route::get('admin/room/{id}/delete',[RoomController::class,'destroy']);
