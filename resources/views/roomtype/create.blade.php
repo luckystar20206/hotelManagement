@@ -13,7 +13,7 @@
 <p class="text-success">{{session('success')}}</p>
             @endif
             <div class="table-responsive">
-                <form action="{{url('admin/roomtype')}}" method="post">
+                <form action="{{url('admin/roomtype')}}" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered">
                     <tr>
                         <th>Title</th>
@@ -28,11 +28,21 @@
                     <th>Price</th>
                     <td><input type="number" name="price" class="form-control"></td>
                 </tr>
+                <tr>
+                    <th>Gallery</th>
+                    <td><input type="file" multiple name="imgs[]" class="form-control"></td>
+                </tr>
                     <td colspan="2">
                    <input type="submit" name="submit" class="btn btn-primary">
                </td>
                 </table>
             </form>
+            @if($errors->any())
+            @foreach ($errors->all() as $item)
+                <p class="text-danger">{{$item}}</p>
+            
+            @endforeach
+            @endif
             </div>
         </div>
     </div>

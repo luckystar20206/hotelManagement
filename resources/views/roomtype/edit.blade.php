@@ -29,6 +29,23 @@
                     <th>Price</th>
                     <td><input type="number" value="{{$data->price}}" name="price" class="form-control"></td>
                 </tr>
+                <tr>
+                    <td>
+                        Gallery Images
+                    </td>
+                    <td>
+                        <table class="table table-bordered">
+                            <tr>
+                                @foreach ($data->roomtypeimgs as $img)
+                                    <td>
+                                        <img width="200" src="{{asset('my_custom_symlink_1/'.$img->img_src)}}" >
+                                        {{-- <img src="{{asset('storage/'.$img->img_src)}}" alt="img"> --}}
+                                    </td>
+                                @endforeach
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                     <td colspan="2">
                    <input type="submit" name="submit" class="btn btn-primary">
                </td>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomtypeController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,9 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('dashboard');
 });
+Route::get('admin/login',[AdminController::class,'login']);
+Route::post('admin/login',[AdminController::class,'check_login']);
+Route::get('admin/logout',[AdminController::class,'logout']);
 //Room type routes
 Route::resource('admin/roomtype',RoomtypeController::class);
 Route::get('admin/roomtype/{id}/delete',[RoomtypeController::class,'destroy']);

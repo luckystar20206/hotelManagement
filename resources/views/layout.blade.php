@@ -21,7 +21,11 @@
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-
+@if(!Session::has('adminData'))
+<script>
+    window.location.href="{{url('admin/login')}}";
+</script>
+@endif
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -76,6 +80,13 @@
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Room</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{url('admin/logout')}}" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-logout"></i>
+                    <span>Logout</span>
                 </a>
             </li>
         </ul>
