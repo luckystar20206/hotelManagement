@@ -24,6 +24,10 @@
                     <th>Detials</th>
                     <td><textarea name="details" name="detail" class="form-control" id="" cols="30" rows="10"></textarea></td>
                 </tr>
+                <tr>
+                    <th>Price</th>
+                    <td><input type="number" name="price" class="form-control"></td>
+                </tr>
                     <td colspan="2">
                    <input type="submit" name="submit" class="btn btn-primary">
                </td>

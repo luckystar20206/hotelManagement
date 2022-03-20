@@ -18,6 +18,10 @@
                     <th>Detials</th>
                     <td>{{$data->detail}}</td>
                 </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{$data->price}}</td>
+                </tr>
                 </table>
             </div>
         </div>

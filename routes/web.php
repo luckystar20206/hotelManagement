@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomtypeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use App\Http\Controllers\RoomController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('dashboard');
 });
 //Admin Dashbopard
 Route::get('/admin', function () {
@@ -26,3 +27,4 @@ Route::resource('admin/roomtype',RoomtypeController::class);
 Route::get('admin/roomtype/{id}/delete',[RoomtypeController::class,'destroy']);
 Route::resource('admin/room',RoomController::class);
 Route::get('admin/room/{id}/delete',[RoomController::class,'destroy']);
+Route::resource('admin/customer',CustomerController::class);

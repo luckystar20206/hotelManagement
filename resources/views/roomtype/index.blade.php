@@ -25,7 +25,9 @@
                         <tr>
                             <th>#</th>
                             <th>Title2</th>
+                            <th>Price</th>
                             <th>Action</th>
+                           
                         </tr>
                     </tfoot>
                     <tbody>
@@ -34,6 +36,7 @@
                     <tr>
                         <td>{{$item['id']}}</td>
                         <td> {{$item['title']}} </td>
+                        <td> {{$item['price']}} </td>
                         <td>
                             <a href="{{url('admin/roomtype/'.$item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                             <a href="{{url('admin/roomtype/'.$item->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
