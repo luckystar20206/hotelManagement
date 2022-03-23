@@ -13,7 +13,7 @@
 <p class="text-success">{{session('success')}}</p>
             @endif
             <div class="table-responsive">
-                <form action="{{url('admin/roomtype/'.$data->id)}}" method="post">
+                <form action="{{url('admin/roomtype/'.$data->id)}}" method="post" enctype="multipart/form-data">
                     @method('put')
                 <table class="table table-bordered">
                     <tr>
@@ -36,10 +36,13 @@
                     <td>
                         <table class="table table-bordered">
                             <tr>
+                                <input type="file" multiple name="imgs[]" class="form-control">
                                 @foreach ($data->roomtypeimgs as $img)
-                                    <td>
+                                    <td class="imgcol{{$img->id}}">
                                         <img width="200" src="{{asset('my_custom_symlink_1/'.$img->img_src)}}" >
-                                        {{-- <img src="{{asset('storage/'.$img->img_src)}}" alt="img"> --}}
+                                       <p class="mt-2"><button type="button"
+                                        onclick="return confirm('Are you sure you wanna delete this image?')";
+                                        class="btn btn-danger btn-sm delete-image" data-image-id='{{$img->id}}'><i class="fa fa-trash"></i></button></p>
                                     </td>
                                 @endforeach
                             </tr>
@@ -56,4 +59,27 @@
     </div>
 
 </div>
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+$(".delete-image").on('click',function(){
+    let _img_id=$(this).attr('data-image-id');
+    var _vm=$(this);
+$.ajax({
+url:"{{url('admin/roomtypeimage/delete')}}/"+_img_id,
+dataType:'json',
+beforeSend:function(){
+_vm.addClass('disabled');
+},
+success:function(res){
+    if(res.bool==true){
+                        $(".imgcol"+_img_id).remove();
+                    }
+                    _vm.removeClass('disabled');
+}
+});
+});
+        });
+        </script>
+@endsection
 @endsection

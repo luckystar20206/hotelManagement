@@ -17,19 +17,11 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>Action</th>
-                            
+                            <th>Price</th>
+                            <th>IMages</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>Title2</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                           
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @if($data)
                         @foreach ($data as $item)
@@ -37,6 +29,7 @@
                         <td>{{$item['id']}}</td>
                         <td> {{$item['title']}} </td>
                         <td> {{$item['price']}} </td>
+                        <td>{{count($item->roomtypeimgs)}}</td>
                         <td>
                             <a href="{{url('admin/roomtype/'.$item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                             <a href="{{url('admin/roomtype/'.$item->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
