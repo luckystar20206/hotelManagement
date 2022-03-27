@@ -1,28 +1,22 @@
-@extends('layout')
+@extends('frontlayout')
 @section('content')
 <div class="container-fluid">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add bookings</h6>
-            <a href="{{url('admin/booking')}}" class="float-right btn btn-success btn-sm">Back</a>
+            <h6 class="m-0 font-weight-bold text-primary">Room bookings</h6>
+            <a href="{{url('/')}}" class="float-right btn btn-success btn-sm">Back</a>
         </div>
         <div class="card-body">           
             <div class="table-responsive">
+                @if(Session::has('success'))
+                <p class="text-center text-danger">{{session('success')}}</p>
+                @endif
                 <form action="{{url('admin/booking')}}" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> 
-                    <tr>
+
                         @csrf
-                        <th>Customer</th>
-                        <td>                 
-                       <select name="customer_id" class="form-control">
-                           <option>--SELECT CUSTOMER--</option>
-                           @foreach ($data as $item)
-                               <option value="{{$item->id}}">{{$item->full_name}}</option>
-                           @endforeach
-                       </select>
-                        </td>
-                        </tr>
+
                         <tr>  
                             <th>
                                 Check IN date
@@ -60,10 +54,14 @@
                                 Available rooms
                             </th>  
                             <td>  
-                                <select name="room_id" class="form-class room-list" id=""></select>
+                                <select name="room_id" class="form-class room-list" id="">
+                                    <option value="">--LOADING--</option>
+                                </select>
                             </td>  
                         </tr>           
                 </table>
+                <input type="hidden" name="customer_id" value="{{session('data')[0]->id}}">
+                <input type="hidden" value="front" class="ref" name="ref">
                 <button type="submit" name="submit" class="btn btn-primary btn-lg">Submit</button>
                 </form>
             </div>
@@ -71,7 +69,13 @@
     </div>
 
 </div>
-@section('scripts')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}/"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 <script>
     $(document).ready(function(){
         $(".checkindate").on('blur',function(){
@@ -85,11 +89,11 @@
                 success:function(res){
                     let _html="";
                     $.each(res.data, function(index,row){
-                        _html+='<option value="'+row.id+'">'+row.title+'</option>';
+                        _html+='<option value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
                     });
                     $(".room-list").html(_html);
                 }
-            })
+            });
         });
     });
 </script>
@@ -100,6 +104,5 @@
 <!-- Page level custom scripts -->
  <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
-@endsection
 
 @endsection

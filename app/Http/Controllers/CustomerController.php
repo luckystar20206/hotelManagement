@@ -34,17 +34,28 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $img_path=$request->file('photo')->store('public/imgs');
+        if($request->hasFile('photo')){
+            $img_path=$request->file('photo')->store('public/imgs');
+        }else{
+            $img_path="null";
+        }
         $data=new Customer;
         $data->full_name=$request->full_name;
         $data->email=$request->email;
-        $data->password=$request->password;
+        $data->password=sha1($request->password);
         $data->mobile=$request->mobile;
         $data->address=$request->address;
         $data->photo=$img_path;
         $data->save();
+        $ref=$request->ref;
+        if($ref=='front'){
+            return redirect('/')->with('success','Data has been added');
+        }else{
+
+        
         return redirect('admin/customer')->with('success','Data has been added');
     }
+}
 
     /**
      * Display the specified resource.
@@ -89,5 +100,28 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+    function login(){
+        return view('frontlogin');
+    }
+    function register(){
+        return view('register');
+    }
+    function cslogin(Request $request){
+        $email=$request->email;
+        $password=sha1($request->password); 
+        $detail=Customer::where(['email'=>$email,'password'=>$password])->count();
+        if($detail>0){
+            $detail=Customer::where(['email'=>$email,'password'=>$password])->get();
+
+            session(['customerlogin'=>true,'data'=>$detail]);
+            return redirect('/');
+        }else{
+            return redirect('frontlogin')->with('error',"Invalid credentials");
+        }
+    }
+    function logout(){
+        session()->forget(['customerlogin','data']);
+        return redirect('login');
     }
 }

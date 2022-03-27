@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffDepartment;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,13 +20,13 @@ use App\Http\Controllers\BookingController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/',[HomeController::class,'home']);
 //Admin Dashbopard
 Route::get('/admin', function () {
     return view('dashboard');
 });
+Route::get('admin',[AdminController::class,'dashboard']);
+
 Route::get('admin/login',[AdminController::class,'login']);
 Route::post('admin/login',[AdminController::class,'check_login']);
 Route::get('admin/logout',[AdminController::class,'logout']);
@@ -47,3 +48,9 @@ Route::resource('admin/staff',StaffController::class);
 Route::resource('admin/booking',BookingController::class);
 
 Route::get('admin/booking/available_rooms/{checkindate}',[BookingController::class,'available_rooms']);
+
+Route::get('frontlogin',[CustomerController::class,'login']);
+Route::get('register',[CustomerController::class,'register']);
+Route::post('customer/login',[CustomerController::class,'cslogin']);
+Route::get('customer/logout',[CustomerController::class,'logout']);
+Route::get('booking',[BookingController::class,'front_booking']);

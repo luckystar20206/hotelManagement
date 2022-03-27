@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    public $timestamps=false;
     use HasFactory;
     function customer(){
         return $this->belongsTo(Customer::class);
